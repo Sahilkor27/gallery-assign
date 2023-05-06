@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery with Dice Roll</title>
+    <style>
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .registration-form {
+            display: none;
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        .registration-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .registration-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .registration-form button:hover {
+            background-color: #45a049;
+        }
+
+        .registration-info {
+            display: none;
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        .registration-info p {
+            margin: 5px 0;
+        }
+
+        .dice {
+            display: none;
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        .dice button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .dice button:hover {
+            background-color: #45a049;
+        }
+
+        .dice p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <img id="image1" src="./a1.jpg" alt="Image 1">
+        <img id="image2" src="./a2.jpg" alt="Image 2">
+        <img id="image3" src="./a3.jpg" alt="Image 3">
+        <img id="image4" src="./a4.jpg" alt="Image 4">
+    </div>
+
+    <div class="registration-form" id="registrationForm">
+        <h2>Register</h2>
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="username" placeholder="Username" required>
+        <button type="submit" id="registerBtn">Register</button>
+    </div>
+
+    <div class="registration-info" id="registrationInfo">
+        <h2>Registration Info</h2>
+        <p>Name: <span id="registeredName"></span></p>
+        <p>Username: <span id="registeredUsername"></span></p>
+    </div>
+
+    <div class="dice" id="dice">
+        <h2>Roll the Dice</h2>
+        <p>Click the button below to roll the dice:</p>
+        <button id="rollBtn">Roll</button>
+        <p id="diceResult"></p>
+    </div>
+
+    <script>
+        let registeredName = '';
+        let registeredUsername = '';
+        let diceRolls = [];
+
+        document.getElementById('image1').addEventListener('click', function() {
+            document.getElementById('registrationForm').style.display = 'block';
+        });
+
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+
+            if (name && email && username) {
+                registeredName = name;
+                registeredUsername = username;
+                alert('Registration successful!');
+                document.getElementById('registrationForm').style.display = 'none';
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+
+        document.getElementById('image2').addEventListener('click', function() {
+            if (registeredName && registeredUsername) {
+                document.getElementById('registeredName').textContent = registeredName;
+                document.getElementById('registeredUsername').textContent = registeredUsername;
+                document.getElementById('registrationInfo').style.display = 'block';
+            } else {
+                alert('Please register first.');
+            }
+        });
+
+        document.getElementById('image3').addEventListener('click', function() {
+            document.getElementById('dice').style.display = 'block';
+        });
+
+        document.getElementById('rollBtn').addEventListener('click', function() {
+            const diceValue = Math.floor(Math.random() * 6) + 1;
+            diceRolls.push(diceValue);
+            document.getElementById('diceResult').textContent = `You rolled a ${diceValue}.`;
+            if (diceRolls.length === 3) {
+                const sum = diceRolls.reduce((total, roll) => total + roll);
+                if (sum > 10) {
+                    alert('You can now click on the fourth image.');
+                    document.getElementById('dice').style.display = 'none';
+                    document.getElementById('image4').addEventListener('click', function() {
+                        alert('Congratulations! You have won the game.');
+                    });
+                } else {
+                    alert('Please try again after scoring more than 10.');
+                    diceRolls = [];
+                }
+            }
+        });
+    </script>
+</body>
+</html>

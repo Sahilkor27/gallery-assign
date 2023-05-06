@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery with Registration Form</title>
+    <style>
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 10px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .registration-form {
+            display: none;
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 5px;
+            max-width: 300px;
+            margin: 20px auto;
+        }
+
+        .registration-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .registration-form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .registration-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery">
+        <img id="image1" src="./a1.jpg" alt="Image 1">
+        <img src="./a2.jpg" alt="Image 2">
+        <img src="./a3.jpg" alt="Image 3">
+        <img src="./a4.jpg" alt="Image 4">
+    </div>
+
+    <div class="registration-form" id="registrationForm">
+        <h2>Register</h2>
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="text" id="username" placeholder="Username" required>
+        <button type="submit" id="registerBtn">Register</button>
+    </div>
+
+    <script>
+        document.getElementById('image1').addEventListener('click', function() {
+            document.getElementById('registrationForm').style.display = 'block';
+        });
+
+        document.getElementById('registerBtn').addEventListener('click', function() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const username = document.getElementById('username').value;
+
+            if (name && email && username) {
+                alert('Registration successful!');
+                // Perform any additional actions, such as sending the data to a server
+            } else {
+                alert('Please fill in all fields.');
+            }
+        });
+    </script>
+</body>
+</html>

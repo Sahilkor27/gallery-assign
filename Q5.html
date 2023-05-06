@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Coupon Generator</title>
+  <style>
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .gallery img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .coupon {
+      display: none;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="gallery">
+    <img src="./a1.jpg" alt="Image 1">
+    <img src="./a2.jpg" alt="Image 2">
+    <img src="./a3.jpg" alt="Image 3">
+    <img src="./a4.jpg" alt="Image 4">
+  </div>
+  <div class="coupon">
+    <p>Your coupon code is: <span id="couponCode"></span></p>
+    <button id="generateCoupon">Generate Coupon</button>
+  </div>
+
+  <script>
+    const images = document.querySelectorAll('.gallery img');
+    const coupon = document.querySelector('.coupon');
+    const couponCode = document.getElementById('couponCode');
+    const generateCoupon = document.getElementById('generateCoupon');
+
+    let clickCount = 0;
+
+    images.forEach((img, index) => {
+      img.addEventListener('click', () => {
+        clickCount++;
+        if (clickCount === 4 && index === 3) {
+          coupon.style.display = 'block';
+        }
+      });
+    });
+
+    generateCoupon.addEventListener('click', () => {
+      const randomCode = Math.random().toString().slice(2, 14);
+      couponCode.textContent = randomCode;
+    });
+  </script>
+</body>
+</html>
